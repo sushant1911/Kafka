@@ -1,28 +1,63 @@
 # Kafka
  step-by-step guide to running Kafka, Zookeeper, creating topics, and producing/consuming messages
-Sure, here's a step-by-step guide to running Kafka, Zookeeper, creating topics, and producing/consuming messages:
-Start Zookeeper:
-Navigate to your Kafka installation directory.
-Run Zookeeper using the following command:
-bin/zookeeper-server-start.sh config/zookeeper.properties
-          Start Kafka Broker:
-Open a new terminal window or tab.
-Navigate to your Kafka installation directory.
-Run Kafka broker using the following command:
-bin/kafka-server-start.sh config/server.propertiesconfig/server.properties
-Create a Kafka Topic:
-Open a new terminal window or tab.
-Navigate to your Kafka installation directory.
-Use the kafka-topics.sh script to create a topic. Replace your_topic_name with the name you want to give to your topic.
-bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic your_topic_name
-Start a Kafka Producer:
-Open a new terminal window or tab.
-Navigate to your Kafka installation directory.
-Run the Kafka console producer to start producing messages to the topic. Replace your_topic_name with the name of the topic you created in the previous step.bin/kafka-console-producer.sh --bootstrap-server localhost:9092 --topic your_topic_name
-Start a Kafka Consumer:
-Open a new terminal window or tab.
-Navigate to your Kafka installation directory.
-Run the Kafka console consumer to start consuming messages from the topic. Replace your_topic_name with the name of the topic you created.
-bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic your_topic_name --from-beginning
-Now you have Zookeeper, Kafka broker, a topic created, a producer publishing messages to the topic, and a consumer consuming messages from the topic. You can start typing messages in the producer terminal, and you should see them being consumed by the consumer in real-time.
+Open Source Kafka Startup in local
+Start Zookeeper Server
 
+sh bin/zookeeper-server-start.sh config/zookeeper.properties
+
+Start Kafka Server / Broker
+
+sh bin/kafka-server-start.sh config/server.properties
+
+Create topic
+
+sh bin/kafka-topics.sh --bootstrap-server localhost:9092 --create --topic NewTopic --partitions 3 --replication-factor 1
+
+list out all topic names
+
+sh bin/kafka-topics.sh --bootstrap-server localhost:9092 --list
+
+Describe topics
+
+sh bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic NewTopic
+
+Produce message
+
+sh bin/kafka-console-producer.sh --broker-list localhost:9092 --topic NewTopic
+
+consume message
+
+sh bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic NewTopic --from-beginning
+
+Confluent Kafka Community Edition in local
+Start Zookeeper Server
+
+bin/zookeeper-server-start etc/kafka/zookeeper.properties
+
+Start Kafka Server / Broker
+
+bin/kafka-server-start etc/kafka/server.properties
+
+Create topic
+
+bin/kafka-topics --bootstrap-server localhost:9092 --create --topic NewTopic1 --partitions 3 --replication-factor 1
+
+list out all topic names
+
+bin/kafka-topics --bootstrap-server localhost:9092 --list
+
+Describe topics
+
+bin/kafka-topics --bootstrap-server localhost:9092 --describe --topic NewTopic1
+
+Produce message
+
+bin/kafka-console-producer --broker-list localhost:9092 --topic NewTopic1
+
+consume message
+
+bin/kafka-console-consumer --bootstrap-server localhost:9092 --topic NewTopic1 --from-beginning 
+
+Send CSV File data to kafka
+
+bin/kafka-console-producer --broker-list localhost:9092 --topic NewTopic1 <bin/customers.csv
